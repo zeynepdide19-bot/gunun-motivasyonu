@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Günün Motivasyonu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="icon.png">
+    <style>
+        body {
+            
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            line-height: 1.6;
+        }
+button:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+}
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            text-align: center;
+            max-width: 320px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        #motivation {
+            font-size: 16px;
+            margin: 20px 0;
+            min-height: 60px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+  
+    <div class="container">
+<h1 id="welcome"></h1>
+
+    <p id="motivation"></p>
+    <button id="motivationBtn" onclick="showDailyMotivation()">
+    Mesajını Al
+</button>
+</div>
+
+<script>
+    const messages = [
+        "Her şey olması gerektiği gibi ilerliyor 🌱",
+        "Kendine nazik ol, elinden geleni yapıyorsun 🤍",
+        "Bugün küçük bir adım bile yeter 🌸",
+        "Derin bir nefes al… Geçiyor 🌊",
+        "Sen sandığından daha güçlüsün ✨",
+        "Yavaşlamak da bir başarıdır 🧘‍♀️"
+    ];
+
+function showDailyMotivation() {
+        const today = new Date().toDateString();
+        const savedDay = localStorage.getItem("motivationDay");
+        const savedMessage = localStorage.getItem("motivationText");
+        const button = document.getElementById("motivationBtn");
+
+        if (savedDay === today && savedMessage) {
+            document.getElementById("motivation").innerText = savedMessage;
+            button.innerText = "Mesajı aldın 🤍";
+            button.disabled = true;
+        } else {
+            const randomIndex = Math.floor(Math.random() * messages.length);
+            const newMessage = messages[randomIndex];
+
+            localStorage.setItem("motivationDay", today);
+            localStorage.setItem("motivationText", newMessage);
+
+            document.getElementById("motivation").innerText = newMessage;
+            button.innerText = "Mesajı aldın 🤍";
+            button.disabled = true;
+        }
+    }
+</script>
+<!--
+<script>
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("./sw.js")
+      .then(() => console.log("Service Worker kayıt edildi 👍"))
+      .catch(err => console.error("SW hata:", err));
+  }
+</script>
+
+-->
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    // Hoş geldin mesajı
+    document.getElementById("welcome").innerText = "Şans Seninle Olsun";
+
+    // Günlük motivasyon kontrolü
+    const today = new Date().toDateString();
+    const savedDay = localStorage.getItem("motivationDay");
+    const savedMessage = localStorage.getItem("motivationText");
+    const button = document.getElementById("motivationBtn");
+
+    if (savedDay === today && savedMessage) {
+        document.getElementById("motivation").innerText = savedMessage;
+        button.innerText = "Mesajı aldın 🤍";
+        button.disabled = true;
+    }
+
+});
+</script>
+
+
+
+</body>
+</html>
